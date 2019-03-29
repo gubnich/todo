@@ -1,0 +1,4 @@
+<div class="wrapper">
+    <app-todo-input (newTodo)="addTodo($event)"></app-todo-input>
+    <app-todo-list [todos]="todos" (done)="fulfilTodo($event)"></app-todo-list>
+</div>
