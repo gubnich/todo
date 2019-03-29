@@ -1,22 +1,27 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
-import { TodoItem } from '../TodoItem';
-import { EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+
+import { TodoItem } from '../core/models';
 
 @Component({
-  selector: 'app-todo-list',
-  templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.css']
+    selector: 'app-todo-list',
+    templateUrl: './todo-list.component.html',
+    styleUrls: ['./todo-list.component.css']
 })
-export class TodoListComponent implements OnInit {
-  @Input() todos: TodoItem[];
-  @Output() done: EventEmitter<any> = new EventEmitter();
-  
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-  fulfilTodo(todoId) :void{
-    this.done.emit(todoId);
-  }
+export class TodoListComponent {
+    /**
+     *  @todos Array of todo-items to display
+     */
+    @Input()
+    private todos: TodoItem[];
+    /**
+     *  @done The emitter is to pass the 'id' property of todo that has been done
+     */
+    @Output()
+    private done: EventEmitter<number> = new EventEmitter();
+    /**
+     *  @fulfilTodo Method that generates 'done' event
+     */
+    private fulfilTodo(todoId: number): void {
+        this.done.emit(todoId);
+    }
 }
