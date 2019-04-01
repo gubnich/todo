@@ -1,0 +1,8 @@
+<ul>
+    <li *ngFor="let todo of todos; trackBy: trackById">
+        <span>{{ todo?.id + 1 }}</span>
+        <p>{{ todo?.text }}</p>
+        <span>{{ todo?.isDone }}</span>
+        <button (click)="fulfilTodo(todo.id)">done</button>
+    </li>
+</ul>
