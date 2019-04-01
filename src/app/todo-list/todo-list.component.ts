@@ -1,35 +1,41 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import {
+    Component,
+    Input,
+    Output,
+    EventEmitter,
+    ChangeDetectionStrategy
+} from "@angular/core";
 
-import { TodoItem } from '../core/models';
+import { TodoItem } from "../core/models";
 
 @Component({
-    selector: 'app-todo-list',
-    templateUrl: './todo-list.component.html',
-    styleUrls: ['./todo-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: "app-todo-list",
+    templateUrl: "./todo-list.component.html",
+    styleUrls: ["./todo-list.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoListComponent {
     /**
-     *  @todos Array of todo-items to display
+     * Array of todo-items to display
      */
     @Input()
     public todos: TodoItem[];
 
     /**
-     *  @done The emitter is to pass the 'id' property of todo that has been done
+     *  The emitter is to pass the 'id' property of todo that has been done
      */
     @Output()
     public done: EventEmitter<number> = new EventEmitter();
 
     /**
-     *  @fulfilTodo Method that generates 'done' event
+     *  Method that generates 'done' event
      */
     public fulfilTodo(todoId: number): void {
         this.done.emit(todoId);
     }
 
     /**
-     * @trackById This method is to help Angular to track which items added
+     *  This method is to help Angular to track which items added
      */
     public trackById(index, item) {
         return item.id;
