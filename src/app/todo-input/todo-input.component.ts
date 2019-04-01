@@ -18,6 +18,7 @@ export class TodoInputComponent {
      *  @add Method that generates newTodo event
      */
     public add(text: string): void {
+        event.preventDefault();
         this.newTodo.emit(text);
     }
 }

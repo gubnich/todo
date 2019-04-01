@@ -19,10 +19,11 @@ export class AppComponent {
      *  @addTodo Adds new todo-item to array of todos
      */
     public addTodo(todo: string): void {
+        const newId: number = this.todos.length ? this.todos[this.todos.length - 1].id + 1 : 0;
         this.todos = [
             ...this.todos,
             {
-                id: this.todos.length + 1,
+                id: newId,
                 text: todo,
                 isDone: false
             }
@@ -33,6 +34,6 @@ export class AppComponent {
      *  @fulfilTodo Changes the value of isDone property to true (todo is done)
      */
     public fulfilTodo(id: number): void {
-        this.todos[id - 1].isDone = true;
+        this.todos[id].isDone = true;
     }
 }
