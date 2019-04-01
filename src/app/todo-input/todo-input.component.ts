@@ -12,11 +12,12 @@ export class TodoInputComponent {
      *  @newTodo This emitter is to pass inputed text
      */
     @Output()
-    private newTodo: EventEmitter<string> = new EventEmitter();
+    public newTodo: EventEmitter<string> = new EventEmitter();
+
     /**
      *  @add Method that generates newTodo event
      */
-    private add(text: string): void {
+    public add(text: string): void {
         this.newTodo.emit(text);
     }
 }
