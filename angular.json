@@ -132,5 +132,10 @@
       }
     }
   },
-  "defaultProject": "todo"
+  "defaultProject": "todo",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

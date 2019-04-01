@@ -3,7 +3,7 @@ import { Component, Output, EventEmitter, ChangeDetectionStrategy } from '@angul
 @Component({
     selector: 'app-todo-input',
     templateUrl: './todo-input.component.html',
-    styleUrls: ['./todo-input.component.css'],
+    styleUrls: ['./todo-input.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 

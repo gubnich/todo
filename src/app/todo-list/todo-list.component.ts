@@ -5,8 +5,8 @@ import { TodoItem } from '../core/models';
 @Component({
     selector: 'app-todo-list',
     templateUrl: './todo-list.component.html',
-    styleUrls: ['./todo-list.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./todo-list.component.scss'],
+    // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoListComponent {
     /**
@@ -24,5 +24,9 @@ export class TodoListComponent {
      */
     private fulfilTodo(todoId: number): void {
         this.done.emit(todoId);
+    }
+    public trackById(index, item) {
+        console.log('track', item.id);
+        return item.id;
     }
 }

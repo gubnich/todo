@@ -1,5 +1,5 @@
 <ul>
-    <li *ngFor="let todo of todos">
+    <li *ngFor="let todo of todos; trackBy: trackById">
         <span>{{ todo?.id }}</span>
         <p>{{ todo?.text }}</p>
         <span>{{ todo?.isDone }}</span>
