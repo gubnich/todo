@@ -7,6 +7,7 @@ import {
 } from "@angular/core";
 
 import { TodoItem } from "../core/models";
+import { TodoService } from "./../core/store-facades/todo.service";
 
 @Component({
     selector: "app-todo-list",
@@ -15,6 +16,7 @@ import { TodoItem } from "../core/models";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoListComponent {
+    constructor(public todoService: TodoService) {}
     /**
      * Array of todo-items to display
      */

@@ -5,7 +5,7 @@ import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 
 import { AppState } from "../store/todos";
-import { FulfilTodo } from "../store/todos";
+import { FulfilTodo, RemoveTodo } from "../store/todos";
 import { TodoItem } from "./../models";
 
 @Injectable({
@@ -26,5 +26,11 @@ export class TodoService {
      */
     addTodo(id: number) {
         this.store.dispatch(new FulfilTodo({ id }));
+    }
+    /**
+     *
+     */
+    removeTodo(id: number) {
+        this.store.dispatch(new RemoveTodo({ id }));
     }
 }

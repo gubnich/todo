@@ -33,6 +33,10 @@ export function todoReducer(state = initialState, action: TodosActions) {
             return {
                 data: [...state.data]
             };
+        case TodosActionTypes.RemoveTodo:
+            return {
+                data: state.data.filter(item => item.id !== action.payload.id)
+            };
         default:
             return state;
     }
