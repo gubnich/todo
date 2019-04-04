@@ -1,12 +1,13 @@
 import { Action } from "@ngrx/store";
 
 export enum TodosActionTypes {
-    LoadTodos = "[Todos] Load Todos",
+    FulfilTodo = "[Todos] Fulfil Todo",
     AddTodo = "[Todos] Add Todo"
 }
 
-export class LoadTodoss implements Action {
-    readonly type = TodosActionTypes.LoadTodos;
+export class FulfilTodo implements Action {
+    readonly type = TodosActionTypes.FulfilTodo;
+    constructor(public payload?: { id: number }) {}
 }
 
 export class AddTodo implements Action {
@@ -14,4 +15,4 @@ export class AddTodo implements Action {
     constructor(public payload?: { text: string }) {}
 }
 
-export type TodosActions = AddTodo;
+export type TodosActions = AddTodo | FulfilTodo;

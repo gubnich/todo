@@ -1,6 +1,6 @@
 <ul>
-    <li *ngFor="let todo of (todosss$ | async); trackBy: trackById">
-        <span>{{ todo?.id + 1 }}</span>
+    <li *ngFor="let todo of todos; trackBy: trackById">
+        <span>{{ todo?.id }}</span>
         <span>{{ check }}</span>
         <p>{{ todo?.text }}</p>
         <span>{{ todo?.isDone }}</span>

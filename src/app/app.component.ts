@@ -1,40 +1,39 @@
 import { Component, ChangeDetectionStrategy } from "@angular/core";
 
+import { Store } from "@ngrx/store";
+
+import { Observable } from "rxjs";
+import { tap } from "rxjs/operators";
+
 import { TodoItem } from "./core/models";
+import { State, AppState } from "./core/store/todos";
+import { FulfilTodo, AddTodo } from "./core/store/todos/todos.actions";
 
 @Component({
     selector: "app-root",
     templateUrl: "./app.component.html",
-    styleUrls: ["./app.component.scss"]
-    // changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ["./app.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
+    private store: Store<AppState>;
     /**
      *  Stores todo-items
      */
-    public todos: TodoItem[] = [];
+    public todos$: Observable<TodoItem[]>;
 
-    /**
-     * Adds new todo-item to array of todos
-     */
-    public addTodo(todo: string): void {
-        const newId: number = this.todos.length
-            ? this.todos[this.todos.length - 1].id + 1
-            : 0;
-        this.todos = [
-            ...this.todos,
-            {
-                id: newId,
-                text: todo,
-                isDone: false
-            }
-        ];
+    // /**
+    //  *  Changes the value of isDone property to true (todo is done)
+    //  */
+    public fulfilTodo(id: number): void {
+        // this.todos[id].isDone = true;
+        this.store.dispatch(new FulfilTodo({ id }));
     }
 
-    /**
-     *  Changes the value of isDone property to true (todo is done)
-     */
-    public fulfilTodo(id: number): void {
-        this.todos[id].isDone = true;
+    constructor(store: Store<AppState>) {
+        this.store = store;
+        this.todos$ = store
+            .select(state => state.todosss.data)
+            .pipe(tap(todos => console.log("todos from store", todos)));
     }
 }
