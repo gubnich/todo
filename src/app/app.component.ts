@@ -3,11 +3,12 @@ import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { Store } from "@ngrx/store";
 
 import { Observable } from "rxjs";
-import { tap } from "rxjs/operators";
+// import { tap } from "rxjs/operators";
 
 import { TodoItem } from "./core/models";
 import { AppState } from "./core/store/todos";
 import { FulfilTodo } from "./core/store/todos";
+import { TodoService } from "./core/store-facades/todo.service";
 
 @Component({
     selector: "app-root",
@@ -16,7 +17,14 @@ import { FulfilTodo } from "./core/store/todos";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-    private store: Store<AppState>;
+    constructor(private todoService: TodoService) {
+        // this.todos$ = store
+        //     .select(state => state.todosss.data)
+        //     .pipe(tap(todos => console.log("todos from store", todos)));
+        this.todos$ = this.todoService.getTodos();
+    }
+
+    // private store: Store<AppState>;
     /**
      *  Stores todo-items
      */
@@ -26,13 +34,7 @@ export class AppComponent {
     //  *  Changes the value of isDone property to true (todo is done)
     //  */
     public fulfilTodo(id: number): void {
-        this.store.dispatch(new FulfilTodo({ id }));
-    }
-
-    constructor(store: Store<AppState>) {
-        this.store = store;
-        this.todos$ = store
-            .select(state => state.todosss.data)
-            .pipe(tap(todos => console.log("todos from store", todos)));
+        // this.store.dispatch(new FulfilTodo({ id }));
+        this.todoService.addTodo(id);
     }
 }
