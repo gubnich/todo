@@ -2,8 +2,7 @@ import { Component, ChangeDetectionStrategy } from "@angular/core";
 
 import { Observable } from "rxjs";
 
-import { TodoItem } from "./core/models";
-import { TodoService } from "./core/store-facades/todo.service";
+import { TodoItem, TodoService } from "./core";
 
 @Component({
     selector: "app-root",
@@ -12,19 +11,39 @@ import { TodoService } from "./core/store-facades/todo.service";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-    constructor(private todoService: TodoService) {
-        this.todos$ = this.todoService.getTodos();
-    }
+    /**
+     *  The service to interact with store
+     */
+    private todoService: TodoService;
 
     /**
      *  Stores todo-items
      */
     public todos$: Observable<TodoItem[]>;
 
+    constructor(todoService: TodoService) {
+        this.todoService = todoService;
+        this.todos$ = this.todoService.getTodos();
+    }
+
     /**
      *  Changes the value of isDone property to true (todo is done)
      */
     public fulfilTodo(id: number): void {
-        this.todoService.addTodo(id);
+        this.todoService.fulfilTodo(id);
+    }
+
+    /**
+     *  Removes todo via todoService
+     */
+    public removeTodo(id: number): void {
+        this.todoService.removeTodo(id);
+    }
+
+    /**
+     *  Adds todo via todoService
+     */
+    public addTodo(text: string): void {
+        this.todoService.addTodo(text);
     }
 }

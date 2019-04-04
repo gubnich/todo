@@ -8,7 +8,7 @@ import { environment } from "../environments/environment";
 import { AppComponent } from "./app.component";
 import { TodoInputComponent } from "./todo-input/todo-input.component";
 import { TodoListComponent } from "./todo-list/todo-list.component";
-import { todoReducer } from "./core/store/todos";
+import { todoReducer, TodoService } from "./core";
 
 @NgModule({
     declarations: [AppComponent, TodoInputComponent, TodoListComponent],
@@ -20,7 +20,7 @@ import { todoReducer } from "./core/store/todos";
             logOnly: environment.production // Restrict extension to log-only mode
         })
     ],
-    providers: [],
+    providers: [TodoService],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

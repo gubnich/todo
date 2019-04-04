@@ -6,8 +6,7 @@ import {
     ChangeDetectionStrategy
 } from "@angular/core";
 
-import { TodoItem } from "../core/models";
-import { TodoService } from "./../core/store-facades/todo.service";
+import { TodoItem, TodoService } from "../core";
 
 @Component({
     selector: "app-todo-list",
@@ -16,7 +15,11 @@ import { TodoService } from "./../core/store-facades/todo.service";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoListComponent {
-    constructor(public todoService: TodoService) {}
+    /**
+     *  The service to interact with store
+     */
+    public todoService: TodoService;
+
     /**
      * Array of todo-items to display
      */
@@ -30,10 +33,27 @@ export class TodoListComponent {
     public done: EventEmitter<number> = new EventEmitter();
 
     /**
+     *  The emitter is to pass the 'id' property of todo to remove
+     */
+    @Output()
+    public remove: EventEmitter<number> = new EventEmitter();
+
+    constructor(todoService: TodoService) {
+        this.todoService = todoService;
+    }
+
+    /**
      *  Method that generates 'done' event
      */
     public fulfilTodo(todoId: number): void {
         this.done.emit(todoId);
+    }
+
+    /**
+     *  Method that generates 'remove' event
+     */
+    public removeTodo(todoId: number): void {
+        this.remove.emit(todoId);
     }
 
     /**

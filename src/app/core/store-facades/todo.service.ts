@@ -4,13 +4,10 @@ import { Store } from "@ngrx/store";
 
 import { Observable } from "rxjs";
 
-import { AppState } from "../store/todos";
-import { FulfilTodo, RemoveTodo } from "../store/todos";
+import { FulfilTodo, RemoveTodo, AddTodo, AppState } from "../store/todos";
 import { TodoItem } from "./../models";
 
-@Injectable({
-    providedIn: "root"
-})
+@Injectable()
 export class TodoService {
     constructor(private store: Store<AppState>) {}
 
@@ -24,13 +21,21 @@ export class TodoService {
     /**
      *  Adds new todo to the store
      */
-    addTodo(id: number) {
-        this.store.dispatch(new FulfilTodo({ id }));
+    addTodo(text: string): void {
+        this.store.dispatch(new AddTodo({ text }));
     }
+
     /**
-     *
+     *  Removes the picked todo from the store
      */
-    removeTodo(id: number) {
+    removeTodo(id: number): void {
         this.store.dispatch(new RemoveTodo({ id }));
+    }
+
+    /**
+     *  Marks todo as done
+     */
+    fulfilTodo(id: number): void {
+        this.store.dispatch(new FulfilTodo({ id }));
     }
 }

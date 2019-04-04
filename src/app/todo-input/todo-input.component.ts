@@ -1,9 +1,9 @@
-import { Component, ChangeDetectionStrategy } from "@angular/core";
-
-import { Store } from "@ngrx/store";
-
-import { AddTodo } from "../core/store/todos/todos.actions";
-import { State } from "../core/store/todos";
+import {
+    Component,
+    ChangeDetectionStrategy,
+    Output,
+    EventEmitter
+} from "@angular/core";
 
 @Component({
     selector: "app-todo-input",
@@ -12,12 +12,17 @@ import { State } from "../core/store/todos";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoInputComponent {
-    constructor(private store: Store<State>) {}
     /**
-     *  Method that dispatches AddTodo action
+     *  The emitter is to add new todo
      */
-    public add(text: string): void {
+    @Output()
+    public newTodo: EventEmitter<string> = new EventEmitter();
+
+    /**
+     *  Method that generates 'remove' event
+     */
+    public addTodo(text: string): void {
         event.preventDefault();
-        this.store.dispatch(new AddTodo({ text }));
+        this.newTodo.emit(text);
     }
 }

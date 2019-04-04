@@ -3,5 +3,6 @@
     <app-todo-list
         [todos]="todos$ | async"
         (done)="fulfilTodo($event)"
+        (remove)="removeTodo($event)"
     ></app-todo-list>
 </div>
