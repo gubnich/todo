@@ -3,16 +3,10 @@ import {
     Input,
     Output,
     EventEmitter,
-    ChangeDetectionStrategy,
-    OnInit
+    ChangeDetectionStrategy
 } from "@angular/core";
-import { Observable } from "rxjs";
-
-import { Store, select } from "@ngrx/store";
 
 import { TodoItem } from "../core/models";
-import { FulfilTodo, AddTodo } from "../core/store/todos/todos.actions";
-import { State } from "../core/store/todos";
 
 @Component({
     selector: "app-todo-list",
@@ -21,13 +15,6 @@ import { State } from "../core/store/todos";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoListComponent {
-    // todosss$: Observable<any>;
-    // check;
-    // constructor(private store: Store<State>) {
-    //     this.todosss$ = this.store.select(state => state.data);
-    //     console.log("todosss", this.todosss$);
-    // }
-
     /**
      * Array of todo-items to display
      */

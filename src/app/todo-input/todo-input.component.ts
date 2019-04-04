@@ -1,10 +1,4 @@
-import {
-    Component,
-    Output,
-    EventEmitter,
-    ChangeDetectionStrategy,
-    OnInit
-} from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 
 import { Store } from "@ngrx/store";
 
@@ -20,13 +14,7 @@ import { State } from "../core/store/todos";
 export class TodoInputComponent {
     constructor(private store: Store<State>) {}
     /**
-     * This emitter is to pass inputed text
-     */
-    // @Output()
-    // public newTodo: EventEmitter<string> = new EventEmitter();
-
-    /**
-     *  Method that generates newTodo event
+     *  Method that dispatches AddTodo action
      */
     public add(text: string): void {
         event.preventDefault();

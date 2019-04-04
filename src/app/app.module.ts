@@ -8,12 +8,7 @@ import { environment } from "../environments/environment";
 import { AppComponent } from "./app.component";
 import { TodoInputComponent } from "./todo-input/todo-input.component";
 import { TodoListComponent } from "./todo-list/todo-list.component";
-import { todoReducer } from "./core/store/todos/todos.reducer";
-import { State } from "./core/store/todos";
-
-interface AppState {
-    todosss: State;
-}
+import { todoReducer } from "./core/store/todos";
 
 @NgModule({
     declarations: [AppComponent, TodoInputComponent, TodoListComponent],

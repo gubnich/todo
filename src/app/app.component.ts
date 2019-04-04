@@ -6,8 +6,8 @@ import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 
 import { TodoItem } from "./core/models";
-import { State, AppState } from "./core/store/todos";
-import { FulfilTodo, AddTodo } from "./core/store/todos/todos.actions";
+import { AppState } from "./core/store/todos";
+import { FulfilTodo } from "./core/store/todos";
 
 @Component({
     selector: "app-root",
@@ -26,7 +26,6 @@ export class AppComponent {
     //  *  Changes the value of isDone property to true (todo is done)
     //  */
     public fulfilTodo(id: number): void {
-        // this.todos[id].isDone = true;
         this.store.dispatch(new FulfilTodo({ id }));
     }
 

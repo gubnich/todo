@@ -1,8 +1,7 @@
-import { Action } from "@ngrx/store";
 import { createSelector } from "@ngrx/store";
 
-import { TodosActionTypes, AddTodo, FulfilTodo } from "./todos.actions";
-import { AppState, State } from "./todos.models";
+import { TodosActions, TodosActionTypes } from "./todos.actions";
+import { State } from "./todos.models";
 
 export const initialState = {
     data: [{ id: 1, text: "initial", isDone: false }]
@@ -15,11 +14,9 @@ export const selectData = createSelector(
     (state: State) => state
 );
 
-export function todoReducer(state = initialState, action) {
+export function todoReducer(state = initialState, action: TodosActions) {
     switch (action.type) {
         case TodosActionTypes.AddTodo:
-            console.log(state);
-            console.log(action);
             const newId: number = state.data.length
                 ? state.data[state.data.length - 1].id + 1
                 : 0;
@@ -37,7 +34,6 @@ export function todoReducer(state = initialState, action) {
                 data: [...state.data]
             };
         default:
-            console.log(state);
             return state;
     }
 }
