@@ -14,7 +14,7 @@ import { todoReducer, TodoService } from "./core";
     declarations: [AppComponent, TodoInputComponent, TodoListComponent],
     imports: [
         BrowserModule,
-        StoreModule.forRoot({ todosss: todoReducer }),
+        StoreModule.forRoot({ todoApp: todoReducer }),
         StoreDevtoolsModule.instrument({
             maxAge: 25, // Retains last 25 states
             logOnly: environment.production // Restrict extension to log-only mode

@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy } from "@angular/core";
 
 import { Observable } from "rxjs";
 
-import { TodoItem, TodoService } from "./core";
+import { TodoItem, TodoService } from "./core/index";
 
 @Component({
     selector: "app-root",
@@ -11,15 +11,12 @@ import { TodoItem, TodoService } from "./core";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-    /**
-     *  The service to interact with store
-     */
     private todoService: TodoService;
 
     /**
      *  Stores todo-items
      */
-    public todos$: Observable<TodoItem[]>;
+    public todos$: Observable<Array<TodoItem>>;
 
     constructor(todoService: TodoService) {
         this.todoService = todoService;

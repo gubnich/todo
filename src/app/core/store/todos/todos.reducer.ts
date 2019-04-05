@@ -1,32 +1,40 @@
-import { TodosActions, TodosActionTypes } from "./todos.actions";
+import * as _ from "lodash";
 
-export const initialState = {
-    data: [{ id: 1, text: "initial", isDone: false }]
+import { TodosActions, TodosActionTypes } from "./todos.actions";
+import { TodoItem } from "../../models/index";
+import { State } from "./todos.models";
+
+export const initialState: State = {
+    data: []
 };
 
-export function todoReducer(state = initialState, action: TodosActions) {
+export function todoReducer(state: State = initialState, action: TodosActions) {
     switch (action.type) {
         case TodosActionTypes.AddTodo:
             const newId: number = state.data.length
                 ? state.data[state.data.length - 1].id + 1
                 : 0;
-            return {
-                data: [
-                    ...state.data,
-                    { id: newId, text: action.payload.text, isDone: false }
-                ]
+            const newTodo: TodoItem = {
+                id: newId,
+                text: action.payload,
+                isDone: false
             };
+            return _.assign(state, {
+                data: [...state.data, newTodo]
+            });
         case TodosActionTypes.FulfilTodo:
-            state.data.find(
-                item => item.id === action.payload.id
-            ).isDone = true;
-            return {
+            state.data.find(item => item.id === action.payload).isDone = true;
+            return _.assign(state, {
                 data: [...state.data]
-            };
+            });
         case TodosActionTypes.RemoveTodo:
-            return {
-                data: state.data.filter(item => item.id !== action.payload.id)
-            };
+            const pickedTodoIndex = state.data.findIndex(
+                item => item.id === action.payload
+            );
+            state.data.splice(pickedTodoIndex, 1);
+            return _.assign(state, {
+                data: [...state.data]
+            });
         default:
             return state;
     }

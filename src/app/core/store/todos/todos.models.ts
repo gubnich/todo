@@ -1,9 +1,9 @@
-import { TodoItem } from "../../models/TodoItem";
+import { TodoItem } from "../../models/index";
 
 export interface AppState {
-    todosss: State;
+    todoApp: State;
 }
 
 export interface State {
-    data: TodoItem[];
+    data: Array<TodoItem>;
 }

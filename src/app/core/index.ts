@@ -1,5 +1,5 @@
-export { TodoItem } from "./models";
-export { TodoService } from "./store-facades";
+export { TodoItem } from "./models/index";
+export { TodoService } from "./store-facades/index";
 export {
     TodosActions,
     AddTodo,
@@ -8,4 +8,4 @@ export {
     AppState,
     State,
     todoReducer
-} from "./store/todos";
+} from "./store/index";
