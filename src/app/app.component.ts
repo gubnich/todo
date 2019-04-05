@@ -1,6 +1,8 @@
 import { Component, ChangeDetectionStrategy } from "@angular/core";
 
-import { TodoItem } from "./core/models";
+import { Observable } from "rxjs";
+
+import { TodoItem, TodoService } from "./core/index";
 
 @Component({
     selector: "app-root",
@@ -9,32 +11,36 @@ import { TodoItem } from "./core/models";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
+    private todoService: TodoService;
+
     /**
      *  Stores todo-items
      */
-    public todos: TodoItem[] = [];
+    public todos$: Observable<Array<TodoItem>>;
 
-    /**
-     * Adds new todo-item to array of todos
-     */
-    public addTodo(todo: string): void {
-        const newId: number = this.todos.length
-            ? this.todos[this.todos.length - 1].id + 1
-            : 0;
-        this.todos = [
-            ...this.todos,
-            {
-                id: newId,
-                text: todo,
-                isDone: false
-            }
-        ];
+    constructor(todoService: TodoService) {
+        this.todoService = todoService;
+        this.todos$ = this.todoService.getTodos();
     }
 
     /**
      *  Changes the value of isDone property to true (todo is done)
      */
     public fulfilTodo(id: number): void {
-        this.todos[id].isDone = true;
+        this.todoService.fulfilTodo(id);
+    }
+
+    /**
+     *  Removes todo via todoService
+     */
+    public removeTodo(id: number): void {
+        this.todoService.removeTodo(id);
+    }
+
+    /**
+     *  Adds todo via todoService
+     */
+    public addTodo(text: string): void {
+        this.todoService.addTodo(text);
     }
 }

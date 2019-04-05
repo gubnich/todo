@@ -1,8 +1,8 @@
 import {
     Component,
+    ChangeDetectionStrategy,
     Output,
-    EventEmitter,
-    ChangeDetectionStrategy
+    EventEmitter
 } from "@angular/core";
 
 @Component({
@@ -13,15 +13,15 @@ import {
 })
 export class TodoInputComponent {
     /**
-     * This emitter is to pass inputed text
+     *  The emitter is to add new todo
      */
     @Output()
     public newTodo: EventEmitter<string> = new EventEmitter();
 
     /**
-     *  Method that generates newTodo event
+     *  Method that generates 'remove' event
      */
-    public add(text: string): void {
+    public addTodo(text: string): void {
         event.preventDefault();
         this.newTodo.emit(text);
     }

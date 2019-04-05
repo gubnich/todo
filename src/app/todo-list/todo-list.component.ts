@@ -6,7 +6,7 @@ import {
     ChangeDetectionStrategy
 } from "@angular/core";
 
-import { TodoItem } from "../core/models";
+import { TodoItem } from "../core/index";
 
 @Component({
     selector: "app-todo-list",
@@ -19,7 +19,7 @@ export class TodoListComponent {
      * Array of todo-items to display
      */
     @Input()
-    public todos: TodoItem[];
+    public todos: Array<TodoItem>;
 
     /**
      *  The emitter is to pass the 'id' property of todo that has been done
@@ -28,10 +28,23 @@ export class TodoListComponent {
     public done: EventEmitter<number> = new EventEmitter();
 
     /**
+     *  The emitter is to pass the 'id' property of todo to remove
+     */
+    @Output()
+    public remove: EventEmitter<number> = new EventEmitter();
+
+    /**
      *  Method that generates 'done' event
      */
     public fulfilTodo(todoId: number): void {
         this.done.emit(todoId);
+    }
+
+    /**
+     *  Method that generates 'remove' event
+     */
+    public removeTodo(todoId: number): void {
+        this.remove.emit(todoId);
     }
 
     /**
