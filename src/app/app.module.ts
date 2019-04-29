@@ -11,9 +11,10 @@ import { TodoInputComponent } from "./todo-input/index";
 import { TodoListComponent } from "./todo-list/index";
 import { todoReducer, TodoService } from "./core/index";
 import { TodoEffects } from "./core/index";
+import { RealtimeDataComponent } from './realtime-data/realtime-data.component';
 
 @NgModule({
-    declarations: [AppComponent, TodoInputComponent, TodoListComponent],
+    declarations: [AppComponent, TodoInputComponent, TodoListComponent, RealtimeDataComponent],
     imports: [
         BrowserModule,
         StoreModule.forRoot({ todoApp: todoReducer }),
