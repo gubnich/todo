@@ -1,8 +1,9 @@
-import { Component, ChangeDetectionStrategy } from "@angular/core";
+import { Component, ChangeDetectionStrategy, OnInit } from "@angular/core";
 
 import { Observable } from "rxjs";
+import { Store } from "@ngrx/store";
 
-import { TodoItem, TodoService } from "./core/index";
+import { TodoItem, AppState } from "./core/index";
 
 @Component({
     selector: "app-root",
@@ -10,37 +11,46 @@ import { TodoItem, TodoService } from "./core/index";
     styleUrls: ["./app.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent {
-    private todoService: TodoService;
+export class AppComponent implements OnInit {
+    private store: Store<AppState>;
 
     /**
      *  Stores todo-items
      */
     public todos$: Observable<Array<TodoItem>>;
 
-    constructor(todoService: TodoService) {
-        this.todoService = todoService;
-        this.todos$ = this.todoService.getTodos();
+    constructor(store: Store<AppState>) {
+        this.store = store;
     }
 
+    public ngOnInit() {
+        this.store.dispatch({ type: "[Todos] Get Todos" });
+        this.todos$ = this.store.select(state => state.todoApp.data);
+    }
     /**
-     *  Changes the value of isDone property to true (todo is done)
+     *  To change the value of isDone property to true (todo is done)
      */
     public fulfilTodo(id: number): void {
-        this.todoService.fulfilTodo(id);
+        this.store.dispatch({
+            type: "[Todos] Fulfil Todo",
+            payload: id
+        });
     }
 
     /**
-     *  Removes todo via todoService
+     *  To remove todo item
      */
     public removeTodo(id: number): void {
-        this.todoService.removeTodo(id);
+        this.store.dispatch({
+            type: "[Todos] Remove Todo",
+            payload: id
+        });
     }
 
     /**
-     *  Adds todo via todoService
+     *  To add todo item
      */
     public addTodo(text: string): void {
-        this.todoService.addTodo(text);
+        this.store.dispatch({ type: "[Todos] Add Todo", payload: text });
     }
 }

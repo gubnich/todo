@@ -1,14 +1,27 @@
 import { Action } from "@ngrx/store";
-// import { PayloadId, PayloadText } from "./todos.models";
+import { State } from "./todos.models";
 
-export enum TodosActionTypes {
-    FulfilTodo = "[Todos] Fulfil Todo",
-    AddTodo = "[Todos] Add Todo",
-    RemoveTodo = "[Todos] Remove Todo"
+export const GET_TODOS: string = "[Todos] Get Todos";
+export const GET_TODOS_SUCCESS: string = "[Todos] Get Todos Success";
+export const FULFIL_TODO: string = "[Todos] Fulfil Todo";
+export const ADD_TODO: string = "[Todos] Add Todo";
+export const REMOVE_TODO: string = "[Todos] Remove Todo";
+
+export class GetTodos implements Action {
+    readonly type = GET_TODOS;
+}
+
+export class GetTodosSuccess implements Action {
+    readonly type = GET_TODOS_SUCCESS;
+    public payload: State;
+
+    constructor(payload: State) {
+        this.payload = payload;
+    }
 }
 
 export class FulfilTodo implements Action {
-    readonly type = TodosActionTypes.FulfilTodo;
+    readonly type = FULFIL_TODO;
     public payload: number;
 
     constructor(payload: number) {
@@ -17,7 +30,7 @@ export class FulfilTodo implements Action {
 }
 
 export class AddTodo implements Action {
-    readonly type = TodosActionTypes.AddTodo;
+    readonly type = ADD_TODO;
     public payload: string;
 
     constructor(payload: string) {
@@ -26,7 +39,7 @@ export class AddTodo implements Action {
 }
 
 export class RemoveTodo implements Action {
-    readonly type = TodosActionTypes.RemoveTodo;
+    readonly type = REMOVE_TODO;
     public payload: number;
 
     constructor(payload: number) {
@@ -34,4 +47,9 @@ export class RemoveTodo implements Action {
     }
 }
 
-export type TodosActions = AddTodo | FulfilTodo | RemoveTodo;
+export type TodosActions =
+    | AddTodo
+    | FulfilTodo
+    | RemoveTodo
+    | GetTodosSuccess
+    | GetTodos;

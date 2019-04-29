@@ -5,5 +5,6 @@ export interface AppState {
 }
 
 export interface State {
+    counter: number;
     data: Array<TodoItem>;
 }

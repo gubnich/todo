@@ -1,9 +1,10 @@
 export { AppState, State } from "./todos.models";
 export {
     TodosActions,
+    GetTodos,
     AddTodo,
     FulfilTodo,
     RemoveTodo,
-    TodosActionTypes
+    GetTodosSuccess
 } from "./todos.actions";
-export { todoReducer } from "./todos.reducer";
+export { todoReducer, initialState } from "./todos.reducer";
