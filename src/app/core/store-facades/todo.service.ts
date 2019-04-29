@@ -1,44 +1,83 @@
 import { Injectable } from "@angular/core";
 
-import { Store } from "@ngrx/store";
+import * as _ from "lodash";
 
-import { Observable } from "rxjs";
-
-import { FulfilTodo, RemoveTodo, AddTodo, AppState } from "../store/index";
+import { State } from "../store/index";
 import { TodoItem } from "../models/index";
+import { initialState } from "../store/index";
 
 @Injectable()
 export class TodoService {
-    private store: Store<AppState>;
-    constructor(store: Store<AppState>) {
-        this.store = store;
-    }
-
     /**
-     *  Gets all todos from the store
+     *  Gets all todos from the local storage
      */
-    getTodos(): Observable<Array<TodoItem>> {
-        return this.store.select(state => state.todoApp.data);
+    getTodos(): State {
+        if (window.localStorage.getItem("todoApp")) {
+            return JSON.parse(window.localStorage.getItem("todoApp"));
+        } else {
+            window.localStorage.setItem(
+                "todoApp",
+                JSON.stringify(initialState)
+            );
+            return initialState;
+        }
     }
 
     /**
-     *  Adds new todo to the store
+     *  Adds new todo item to the local storage
      */
     addTodo(text: string): void {
-        this.store.dispatch(new AddTodo(text));
+        const storage = JSON.parse(window.localStorage.getItem("todoApp"));
+        const newId: number = storage.counter + 1;
+        const newTodo: TodoItem = {
+            id: newId,
+            text,
+            isDone: false
+        };
+
+        window.localStorage.setItem(
+            "todoApp",
+            JSON.stringify(
+                _.assign(storage, {
+                    counter: newId,
+                    data: [...storage.data, newTodo]
+                })
+            )
+        );
     }
 
     /**
-     *  Removes the picked todo from the store
+     *  Removes the picked todo item from the local storage
      */
     removeTodo(id: number): void {
-        this.store.dispatch(new RemoveTodo(id));
+        const storage = JSON.parse(window.localStorage.getItem("todoApp"));
+        const pickedTodoIndex = storage.data.findIndex(item => item.id === id);
+
+        storage.data.splice(pickedTodoIndex, 1);
+        window.localStorage.setItem(
+            "todoApp",
+            JSON.stringify(
+                _.assign(storage, {
+                    data: [...storage.data]
+                })
+            )
+        );
     }
 
     /**
-     *  Marks todo as done
+     *  Marks todo item as done in the local storage
      */
     fulfilTodo(id: number): void {
-        this.store.dispatch(new FulfilTodo(id));
+        const storage = JSON.parse(window.localStorage.getItem("todoApp"));
+
+        storage.data.find(item => item.id === id).isDone = true;
+        window.localStorage.setItem(
+            "todoApp",
+            JSON.stringify(
+                _.assign(storage, {
+                    data: [...storage.data]
+                })
+            )
+        );
     }
 }
