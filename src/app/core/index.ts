@@ -1,5 +1,6 @@
 export { TodoItem } from "./models/index";
-export { TodoService } from "./store-facades/index";
+export { TodoEffects } from "./effects/index";
+export { TodoService } from "./services/index";
 export {
     TodosActions,
     GetTodos,

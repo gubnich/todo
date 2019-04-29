@@ -2,10 +2,10 @@ import * as _ from "lodash";
 
 import {
     TodosActions,
-    GetTodosSuccessAction,
-    FulfilTodoAction,
-    AddTodoAction,
-    RemoveTodoAction
+    GET_TODOS_SUCCESS,
+    FULFIL_TODO,
+    ADD_TODO,
+    REMOVE_TODO
 } from "./todos.actions";
 import { TodoItem } from "../../models/index";
 import { State } from "./todos.models";
@@ -17,12 +17,12 @@ export const initialState: State = {
 
 export function todoReducer(state: State = initialState, action: TodosActions) {
     switch (action.type) {
-        case GetTodosSuccessAction:
+        case GET_TODOS_SUCCESS:
             return _.assign(state, {
                 counter: action.payload.counter,
                 data: [...state.data, ...action.payload.data]
             });
-        case AddTodoAction:
+        case ADD_TODO:
             const newId: number = state.counter + 1;
             const newTodo: TodoItem = {
                 id: newId,
@@ -33,12 +33,12 @@ export function todoReducer(state: State = initialState, action: TodosActions) {
                 counter: newId,
                 data: [...state.data, newTodo]
             });
-        case FulfilTodoAction:
+        case FULFIL_TODO:
             state.data.find(item => item.id === action.payload).isDone = true;
             return _.assign(state, {
                 data: [...state.data]
             });
-        case RemoveTodoAction:
+        case REMOVE_TODO:
             const pickedTodoIndex = state.data.findIndex(
                 item => item.id === action.payload
             );

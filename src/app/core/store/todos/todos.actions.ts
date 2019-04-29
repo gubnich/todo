@@ -1,18 +1,19 @@
 import { Action } from "@ngrx/store";
 import { State } from "./todos.models";
 
-export const GetTodosAction = "[Todos] Get Todos";
-export const GetTodosSuccessAction = "[Todos] Get Todos Success";
-export const FulfilTodoAction = "[Todos] Fulfil Todo";
-export const AddTodoAction = "[Todos] Add Todo";
-export const RemoveTodoAction = "[Todos] Remove Todo";
+export const GET_TODOS: string = "[Todos] Get Todos";
+export const GET_TODOS_SUCCESS: string = "[Todos] Get Todos Success";
+export const FULFIL_TODO: string = "[Todos] Fulfil Todo";
+export const ADD_TODO: string = "[Todos] Add Todo";
+export const REMOVE_TODO: string = "[Todos] Remove Todo";
 
 export class GetTodos implements Action {
-    readonly type = GetTodosAction;
+    readonly type = GET_TODOS;
+    public payload;
 }
 
 export class GetTodosSuccess implements Action {
-    readonly type = GetTodosSuccessAction;
+    readonly type = GET_TODOS_SUCCESS;
     public payload: State;
 
     constructor(payload: State) {
@@ -21,7 +22,7 @@ export class GetTodosSuccess implements Action {
 }
 
 export class FulfilTodo implements Action {
-    readonly type = FulfilTodoAction;
+    readonly type = FULFIL_TODO;
     public payload: number;
 
     constructor(payload: number) {
@@ -30,7 +31,7 @@ export class FulfilTodo implements Action {
 }
 
 export class AddTodo implements Action {
-    readonly type = AddTodoAction;
+    readonly type = ADD_TODO;
     public payload: string;
 
     constructor(payload: string) {
@@ -39,7 +40,7 @@ export class AddTodo implements Action {
 }
 
 export class RemoveTodo implements Action {
-    readonly type = RemoveTodoAction;
+    readonly type = REMOVE_TODO;
     public payload: number;
 
     constructor(payload: number) {
@@ -51,5 +52,5 @@ export type TodosActions =
     | AddTodo
     | FulfilTodo
     | RemoveTodo
-    | GetTodos
-    | GetTodosSuccess;
+    | GetTodosSuccess
+    | GetTodos;

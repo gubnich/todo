@@ -11,7 +11,7 @@ export class TodoService {
     /**
      *  Gets all todos from the local storage
      */
-    getTodos(): State {
+    public getTodos(): State {
         if (window.localStorage.getItem("todoApp")) {
             return JSON.parse(window.localStorage.getItem("todoApp"));
         } else {
@@ -26,7 +26,7 @@ export class TodoService {
     /**
      *  Adds new todo item to the local storage
      */
-    addTodo(text: string): void {
+    public addTodo(text: string): void {
         const storage = JSON.parse(window.localStorage.getItem("todoApp"));
         const newId: number = storage.counter + 1;
         const newTodo: TodoItem = {
@@ -49,7 +49,7 @@ export class TodoService {
     /**
      *  Removes the picked todo item from the local storage
      */
-    removeTodo(id: number): void {
+    public removeTodo(id: number): void {
         const storage = JSON.parse(window.localStorage.getItem("todoApp"));
         const pickedTodoIndex = storage.data.findIndex(item => item.id === id);
 
@@ -67,7 +67,7 @@ export class TodoService {
     /**
      *  Marks todo item as done in the local storage
      */
-    fulfilTodo(id: number): void {
+    public fulfilTodo(id: number): void {
         const storage = JSON.parse(window.localStorage.getItem("todoApp"));
 
         storage.data.find(item => item.id === id).isDone = true;
