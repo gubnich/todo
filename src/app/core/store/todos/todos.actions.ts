@@ -9,7 +9,6 @@ export const REMOVE_TODO: string = "[Todos] Remove Todo";
 
 export class GetTodos implements Action {
     readonly type = GET_TODOS;
-    public payload;
 }
 
 export class GetTodosSuccess implements Action {

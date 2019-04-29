@@ -19,13 +19,16 @@ export function todoReducer(state: State = initialState, action: TodosActions) {
     switch (action.type) {
         case GET_TODOS_SUCCESS:
             return _.assign(state, {
+                // @ts-ignore
                 counter: action.payload.counter,
+                // @ts-ignore
                 data: [...state.data, ...action.payload.data]
             });
         case ADD_TODO:
             const newId: number = state.counter + 1;
             const newTodo: TodoItem = {
                 id: newId,
+                // @ts-ignore
                 text: action.payload,
                 isDone: false
             };
@@ -34,12 +37,14 @@ export function todoReducer(state: State = initialState, action: TodosActions) {
                 data: [...state.data, newTodo]
             });
         case FULFIL_TODO:
+            // @ts-ignore
             state.data.find(item => item.id === action.payload).isDone = true;
             return _.assign(state, {
                 data: [...state.data]
             });
         case REMOVE_TODO:
             const pickedTodoIndex = state.data.findIndex(
+                // @ts-ignore
                 item => item.id === action.payload
             );
             state.data.splice(pickedTodoIndex, 1);
