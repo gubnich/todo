@@ -16,7 +16,6 @@ import { todoListAnimation } from "./todo-list.animation";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoListComponent {
-    // public isDeleted = false;
     /**
      * Array of todo-items to display
      */
@@ -46,7 +45,6 @@ export class TodoListComponent {
      *  Method that generates 'remove' event
      */
     public removeTodo(todoId: number): void {
-        // this.isDeleted = true;
         this.remove.emit(todoId);
     }
 

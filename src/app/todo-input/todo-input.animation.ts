@@ -7,11 +7,14 @@ import {
     keyframes
 } from "@angular/animations";
 
+export const todoInputAnimationStart = "start";
+export const todoInputAnimationEnd = "end";
+
 export const todoInputAnimation = trigger("alertFrame", [
-    state("start", style({})),
-    state("end", style({})),
+    state(todoInputAnimationStart, style({})),
+    state(todoInputAnimationEnd, style({})),
     transition(
-        "start => end",
+        `${todoInputAnimationStart} => ${todoInputAnimationEnd}`,
         animate(
             "200ms ease-in",
             keyframes([
@@ -23,7 +26,7 @@ export const todoInputAnimation = trigger("alertFrame", [
                     transform: "translateY(-5px)"
                 }),
                 style({
-                    boxShadow: "0 0 2px 0 #e5edee ",
+                    boxShadow: "0 0 2px 0 #e5edee",
                     transform: "translateY(3px)"
                 }),
                 style({

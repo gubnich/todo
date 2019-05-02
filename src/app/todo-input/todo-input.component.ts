@@ -5,7 +5,11 @@ import {
     EventEmitter
 } from "@angular/core";
 
-import { todoInputAnimation } from "./todo-input.animation";
+import {
+    todoInputAnimation,
+    todoInputAnimationStart,
+    todoInputAnimationEnd
+} from "./todo-input.animation";
 
 @Component({
     selector: "app-todo-input",
@@ -15,7 +19,11 @@ import { todoInputAnimation } from "./todo-input.animation";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoInputComponent {
-    public alert: string;
+    /**
+     *  To contain current state of the animation
+     */
+    public alertTrigger: string;
+
     /**
      *  The emitter is to add new todo
      */
@@ -30,10 +38,14 @@ export class TodoInputComponent {
         if (text) {
             this.newTodo.emit(text);
         } else {
-            this.alert = "end";
+            this.alertTrigger = todoInputAnimationEnd;
         }
     }
-    public resetAnimation() {
-        this.alert = "start";
+
+    /**
+     *  Sets the animation trigger to initial state in order to reuse the animation again next time
+     */
+    public resetAnimation(): void {
+        this.alertTrigger = todoInputAnimationStart;
     }
 }

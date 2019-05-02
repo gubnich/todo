@@ -1,10 +1,12 @@
 :host {
     width: 20rem;
     margin-top: 3rem;
-    form {
+
+    .addTodosForm {
         display: flex;
         justify-content: center;
-        input {
+
+        .addTodosFormInput {
             width: 18rem;
             height: 2rem;
             border: 1px solid #b5cbd0;
@@ -12,7 +14,8 @@
             outline: none;
             color: #3c575e;
         }
-        button {
+
+        .addTodosFormSubmit {
             padding: 0 0.5rem;
             border: none;
             background: #c1d3d8;
