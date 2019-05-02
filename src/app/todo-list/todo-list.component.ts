@@ -5,16 +5,18 @@ import {
     EventEmitter,
     ChangeDetectionStrategy
 } from "@angular/core";
-
 import { TodoItem } from "../core/index";
+import { todoListAnimation } from "./todo-list.animation";
 
 @Component({
     selector: "app-todo-list",
     templateUrl: "./todo-list.component.html",
     styleUrls: ["./todo-list.component.scss"],
+    animations: [todoListAnimation],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoListComponent {
+    // public isDeleted = false;
     /**
      * Array of todo-items to display
      */
@@ -25,7 +27,7 @@ export class TodoListComponent {
      *  The emitter is to pass the 'id' property of todo that has been done
      */
     @Output()
-    public done: EventEmitter<number> = new EventEmitter();
+    public toggleDone: EventEmitter<number> = new EventEmitter();
 
     /**
      *  The emitter is to pass the 'id' property of todo to remove
@@ -37,13 +39,14 @@ export class TodoListComponent {
      *  Method that generates 'done' event
      */
     public fulfilTodo(todoId: number): void {
-        this.done.emit(todoId);
+        this.toggleDone.emit(todoId);
     }
 
     /**
      *  Method that generates 'remove' event
      */
     public removeTodo(todoId: number): void {
+        // this.isDeleted = true;
         this.remove.emit(todoId);
     }
 

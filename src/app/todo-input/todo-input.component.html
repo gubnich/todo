@@ -1,4 +1,9 @@
 <form action="#">
-    <input #input type="text" />
+    <input
+        #input
+        type="text"
+        [@alertFrame]="alert"
+        (@alertFrame.done)="resetAnimation()"
+    />
     <button (click)="addTodo(input.value)">add</button>
 </form>

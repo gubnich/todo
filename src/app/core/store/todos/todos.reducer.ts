@@ -3,7 +3,7 @@ import * as _ from "lodash";
 import {
     TodosActions,
     GET_TODOS_SUCCESS,
-    FULFIL_TODO,
+    FULFIL_TODO_TOGGLE,
     ADD_TODO,
     REMOVE_TODO
 } from "./todos.actions";
@@ -18,11 +18,11 @@ export const initialState: State = {
 export function todoReducer(state: State = initialState, action: TodosActions) {
     switch (action.type) {
         case GET_TODOS_SUCCESS:
-            return _.assign(state, {
+            return _.assign({
                 // @ts-ignore
                 counter: action.payload.counter,
                 // @ts-ignore
-                data: [...state.data, ...action.payload.data]
+                data: [...action.payload.data]
             });
         case ADD_TODO:
             const newId: number = state.counter + 1;
@@ -36,9 +36,12 @@ export function todoReducer(state: State = initialState, action: TodosActions) {
                 counter: newId,
                 data: [...state.data, newTodo]
             });
-        case FULFIL_TODO:
-            // @ts-ignore
-            state.data.find(item => item.id === action.payload).isDone = true;
+        case FULFIL_TODO_TOGGLE:
+            const isDoneProp = state.data.find(
+                // @ts-ignore
+                item => item.id === action.payload
+            );
+            isDoneProp.isDone = !isDoneProp.isDone;
             return _.assign(state, {
                 data: [...state.data]
             });

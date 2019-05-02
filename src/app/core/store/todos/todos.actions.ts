@@ -3,7 +3,7 @@ import { State } from "./todos.models";
 
 export const GET_TODOS: string = "[Todos] Get Todos";
 export const GET_TODOS_SUCCESS: string = "[Todos] Get Todos Success";
-export const FULFIL_TODO: string = "[Todos] Fulfil Todo";
+export const FULFIL_TODO_TOGGLE: string = "[Todos] Fulfil Todo Toggle";
 export const ADD_TODO: string = "[Todos] Add Todo";
 export const REMOVE_TODO: string = "[Todos] Remove Todo";
 
@@ -21,7 +21,7 @@ export class GetTodosSuccess implements Action {
 }
 
 export class FulfilTodo implements Action {
-    readonly type = FULFIL_TODO;
+    readonly type = FULFIL_TODO_TOGGLE;
     public payload: number;
 
     constructor(payload: number) {
