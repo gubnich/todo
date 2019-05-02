@@ -1,0 +1,38 @@
+$primaryFontFamily: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+    sans-serif;
+$darkColor: #6d98a2;
+$lightColor: #d9e4e7;
+
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: $primaryFontFamily;
+}
+
+.nav {
+    display: flex;
+    width: 20rem;
+    height: 7rem;
+    margin: 5rem 0;
+    justify-content: space-between;
+    background: $lightColor;
+
+    .navlink {
+        display: flex;
+        flex: 1 1;
+        align-items: center;
+        justify-content: center;
+        color: $darkColor;
+    }
+
+    .active {
+        background: $darkColor;
+        color: $lightColor;
+    }
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+}

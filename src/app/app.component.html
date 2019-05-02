@@ -1,8 +1,7 @@
-<div class="wrapper">
-    <app-todo-input (newTodo)="addTodo($event)"></app-todo-input>
-    <app-todo-list
-        [todos]="todos$ | async"
-        (done)="fulfilTodo($event)"
-        (remove)="removeTodo($event)"
-    ></app-todo-list>
+<nav class="nav">
+    <a class="navlink" routerLink="/todo" routerLinkActive="active">home</a>
+    <a class="navlink" routerLink="/realtime" routerLinkActive="active">data</a>
+</nav>
+<div class="content">
+    <router-outlet></router-outlet>
 </div>

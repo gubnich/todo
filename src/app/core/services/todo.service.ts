@@ -67,10 +67,10 @@ export class TodoService {
     /**
      *  Marks todo item as done in the local storage
      */
-    public fulfilTodo(id: number): void {
+    public fulfilTodoToggle(id: number): void {
         const storage = JSON.parse(window.localStorage.getItem("todoApp"));
-
-        storage.data.find(item => item.id === id).isDone = true;
+        const isDoneProp = storage.data.find(item => item.id === id);
+        isDoneProp.isDone = !isDoneProp.isDone;
         window.localStorage.setItem(
             "todoApp",
             JSON.stringify(

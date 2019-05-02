@@ -1,9 +1,16 @@
-<ul>
-    <li *ngFor="let todo of todos; trackBy: trackById">
-        <span>{{ todo?.id }}</span>
-        <p>{{ todo?.text }}</p>
-        <span>{{ todo?.isDone }}</span>
-        <button (click)="fulfilTodo(todo.id)">done</button>
-        <button (click)="removeTodo(todo.id)">delete</button>
+<ul class="todoList">
+    <li
+        class="todoItem"
+        @insertRemoveTrigger
+        *ngFor="let todo of todos; trackBy: trackById"
+    >
+        <span class="todoId">{{ todo?.id }}</span>
+        <input type="checkbox" (change)="fulfilTodo(todo.id)" />
+        <p class="todoText" [class.fulfilled]="todo?.isDone">
+            {{ todo?.text }}
+        </p>
+        <button class="removeButton" (click)="removeTodo(todo.id)">
+            del
+        </button>
     </li>
 </ul>

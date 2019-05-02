@@ -1,4 +1,12 @@
-<form action="#">
-    <input #input type="text" />
-    <button (click)="addTodo(input.value)">add</button>
+<form class="addTodosForm" action="#">
+    <input
+        class="addTodosFormInput"
+        #input
+        type="text"
+        [@alertFrame]="alertTrigger"
+        (@alertFrame.done)="resetAnimation()"
+    />
+    <button class="addTodosFormSubmit" (click)="addTodo(input.value)">
+        add
+    </button>
 </form>

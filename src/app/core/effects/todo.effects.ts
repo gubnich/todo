@@ -11,7 +11,11 @@ import {
     FulfilTodo,
     RemoveTodo,
     AddTodo,
-    GetTodosSuccess
+    GetTodosSuccess,
+    FULFIL_TODO_TOGGLE,
+    ADD_TODO,
+    REMOVE_TODO,
+    GET_TODOS
 } from "../store/index";
 
 @Injectable()
@@ -41,34 +45,34 @@ export class TodoEffects {
      *  To mark fulfilled todo item in the local storage via service
      */
     @Effect()
-    public fulfilTodo$: Actions;
+    public fulfilTodoToggle$: Actions;
 
     constructor(actions: Actions, service: TodoService) {
         this.actions$ = actions;
         this.todoService = service;
         this.getTodos$ = this.actions$.pipe(
-            ofType("[Todos] Get Todos"),
+            ofType(GET_TODOS),
             map(() => this.todoService.getTodos()),
             map((res: State) => new GetTodosSuccess(res))
         );
         this.addTodo$ = this.actions$.pipe(
-            ofType("[Todos] Add Todo"),
+            ofType(ADD_TODO),
             switchMap((action: AddTodo) => {
                 this.todoService.addTodo(action.payload);
                 return EMPTY;
             })
         );
         this.removeTodo$ = this.actions$.pipe(
-            ofType("[Todos] Remove Todo"),
+            ofType(REMOVE_TODO),
             switchMap((action: RemoveTodo) => {
                 this.todoService.removeTodo(action.payload);
                 return EMPTY;
             })
         );
-        this.fulfilTodo$ = this.actions$.pipe(
-            ofType("[Todos] Fulfil Todo"),
+        this.fulfilTodoToggle$ = this.actions$.pipe(
+            ofType(FULFIL_TODO_TOGGLE),
             switchMap((action: FulfilTodo) => {
-                this.todoService.fulfilTodo(action.payload);
+                this.todoService.fulfilTodoToggle(action.payload);
                 return EMPTY;
             })
         );

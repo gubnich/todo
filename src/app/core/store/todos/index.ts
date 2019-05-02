@@ -5,6 +5,11 @@ export {
     AddTodo,
     FulfilTodo,
     RemoveTodo,
-    GetTodosSuccess
+    GetTodosSuccess,
+    GET_TODOS_SUCCESS,
+    FULFIL_TODO_TOGGLE,
+    ADD_TODO,
+    REMOVE_TODO,
+    GET_TODOS
 } from "./todos.actions";
 export { todoReducer, initialState } from "./todos.reducer";

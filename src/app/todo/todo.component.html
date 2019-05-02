@@ -1,0 +1,6 @@
+<app-todo-input (newTodo)="addTodo($event)"></app-todo-input>
+<app-todo-list
+    [todos]="todos$ | async"
+    (toggleDone)="fulfilTodoToggle($event)"
+    (remove)="removeTodo($event)"
+></app-todo-list>
