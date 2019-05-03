@@ -2,9 +2,9 @@ import { Injectable } from "@angular/core";
 
 import * as _ from "lodash";
 
-import { State } from "../store/index";
-import { TodoItem } from "../models/index";
-import { initialState } from "../store/index";
+import { State } from "../../store/index";
+import { TodoItem } from "../../models/index";
+import { initialState } from "../../store/index";
 
 @Injectable()
 export class TodoService {
