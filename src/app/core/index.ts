@@ -1,7 +1,7 @@
 export { TodoItem } from "./models/index";
 export { AppRoutingModule } from "./routing/index";
 export { TodoEffects } from "./effects/index";
-export { TodoService } from "./services/index";
+export { TodoService, RealtimeService } from "./services/index";
 export {
     TodosActions,
     GetTodos,

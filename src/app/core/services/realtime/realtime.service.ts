@@ -1,8 +1,15 @@
 import { Injectable } from "@angular/core";
 
-@Injectable({
-    providedIn: "root"
-})
+import { timer } from "rxjs";
+import { take, map } from "rxjs/operators";
+
+@Injectable()
 export class RealtimeService {
-    constructor() {}
+    public timer$;
+    constructor() {
+        this.timer$ = timer(500, 1000).pipe(
+            // take(5),
+            map(x => Math.random())
+        );
+    }
 }
