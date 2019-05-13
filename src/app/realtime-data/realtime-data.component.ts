@@ -1,48 +1,123 @@
-import { Component, OnInit } from "@angular/core";
-import { RealtimeService } from "../core/services/index";
-import { map, tap, switchMap, scan, take } from "rxjs/operators";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+
+import { Subscriber } from "rxjs";
+import { map } from "rxjs/operators";
+
 import * as d3 from "d3";
-import { of } from "rxjs";
-import { transition } from "@angular/animations";
+
+import { RealtimeService } from "../core/services/index";
+import { SVGchart } from "../core/index";
+import { Chart } from "./Chart";
+
+/**
+ *  A pixels increment on X axis
+ */
+const offsetX: number = 80;
+
+/**
+ *  Animation duration
+ */
+const duration: number = 1000;
+
+/**
+ *  Axis X visible length
+ */
+const Xlength: number = 10;
+
+/**
+ *  Axis Y visible length
+ */
+const Ylength: number = 1;
+
+/**
+ *  Chart px height
+ */
+const height: number = 400;
+
 @Component({
     selector: "app-realtime-data",
     templateUrl: "./realtime-data.component.html",
-    styleUrls: ["./realtime-data.component.css"]
+    styleUrls: ["./realtime-data.component.scss"]
 })
-export class RealtimeDataComponent implements OnInit {
-    private realtimeService;
-    public dataRow$;
+export class RealtimeDataComponent implements OnInit, OnDestroy {
+    /**
+     * Random numbers service
+     */
+    private realtimeService: RealtimeService;
+
+    /**
+     *  Subscription to timer
+     */
+    private timer$: Subscriber<number>;
+
+    /**
+     *  SVG object
+     */
+    public chart: SVGchart;
 
     constructor() {
         this.realtimeService = new RealtimeService();
     }
-    ngOnInit() {
-        var cx = d3.scaleLinear([0, 100], [0, 600]);
-        var cy = d3.scaleLinear([0, 1], [0, 400]);
-        var svg = d3.select("path");
-        var line = d3.line();
-        // var data = [[10, 20], [30, 40], [50, 60], [70, 80], [90, 100]];
-        var data = Array(10).fill(Array(2).fill(0));
-        // var g = line([[10, 20], [30, 40], [50, 60], [70, 80], [90, 100]]);
 
-        svg.datum(data).attr("d", line);
-
-        this.dataRow$ = this.realtimeService.timer$
+    public ngOnInit() {
+        this.chart = new Chart(Xlength, Ylength, height);
+        this.chart.runningBox.attr("transform", `translate(-${offsetX})`);
+        this.chart.container.datum(this.chart.data).attr("d", this.chart.line);
+        // Pushing new coordinates to the data array and throwing it to update the chart`s view
+        this.timer$ = this.realtimeService.timer$
             .pipe(
-                map((x, i) => {
-                    console.log("service", x, i);
-                    data.push([(i + 10) * 30, cy(x)]);
-
-                    svg.datum(data)
-                        .attr("d", line)
-                        .attr("transform", null)
-                        .transition()
-                        .duration(1000)
-                        .ease(d3.easeLinear)
-                        .attr("transform", `translate(-${30 * i})`);
-                    data.shift();
+                map((rand, i) => {
+                    const newPoint = [this.newX(i + Xlength), this.newY(rand)];
+                    this.chart.data.push(newPoint);
+                    this.addPoint(newPoint, rand);
+                    this.updateTo(this.chart.data, offsetX * i);
+                    this.chart.data.shift();
                 })
             )
             .subscribe();
+    }
+
+    public ngOnDestroy() {
+        this.timer$.unsubscribe();
+    }
+
+    /**
+     *  Draws new line on the chart
+     */
+    private updateTo(data, offset): void {
+        this.chart.container.datum(data).attr("d", this.chart.line);
+        this.chart.viewbox
+            .transition()
+            .duration(duration)
+            .ease(d3.easeLinear)
+            .attr("transform", `translate(-${offset})`);
+    }
+
+    /**
+     *  Adds new text point to chart
+     */
+    private addPoint(coords, text) {
+        this.chart.runningBox
+            .append("text")
+            .text(text)
+            .attr("x", coords[0])
+            .attr("y", coords[1])
+            .attr("fill", "#3d675c");
+
+        this.chart.runningBox.select("text").remove();
+    }
+
+    /**
+     *  Returns new X coordinate
+     */
+    private newX(serialNumber) {
+        return serialNumber * offsetX;
+    }
+
+    /**
+     *  Returns new Y coordinate
+     */
+    private newY(num) {
+        return this.chart.scaleY(num);
     }
 }

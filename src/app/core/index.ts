@@ -1,4 +1,4 @@
-export { TodoItem } from "./models/index";
+export { TodoItem, SVGchart } from "./models/index";
 export { AppRoutingModule } from "./routing/index";
 export { TodoEffects } from "./effects/index";
 export { TodoService, RealtimeService } from "./services/index";
