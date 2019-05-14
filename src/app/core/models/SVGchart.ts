@@ -1,8 +1,11 @@
 export interface SVGchart {
     viewbox;
     runningBox;
-    container;
+    path;
     line;
     data;
+    scaleX;
     scaleY;
+    axisX;
+    axisY;
 }
