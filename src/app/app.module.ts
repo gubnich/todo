@@ -12,7 +12,8 @@ import {
     AppRoutingModule,
     TodoEffects,
     todoReducer,
-    TodoService
+    TodoService,
+    RealtimeService
 } from "./core/index";
 import { TodoInputComponent } from "./todo-input/index";
 import { TodoListComponent } from "./todo-list/index";
@@ -38,7 +39,7 @@ import { TodoComponent } from "./todo/index";
         }),
         AppRoutingModule
     ],
-    providers: [TodoService],
+    providers: [TodoService, RealtimeService],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

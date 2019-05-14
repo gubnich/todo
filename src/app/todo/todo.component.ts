@@ -14,7 +14,7 @@ import { TodoItem, AppState } from "../core/index";
 @Component({
     selector: "app-todo",
     templateUrl: "./todo.component.html",
-    styleUrls: ["./todo.component.css"],
+    styleUrls: ["./todo.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoComponent implements OnInit {

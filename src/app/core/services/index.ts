@@ -1,1 +1,2 @@
-export { TodoService } from "./todo.service";
+export { TodoService } from "./todo/index";
+export { RealtimeService } from "./realtime/index";
